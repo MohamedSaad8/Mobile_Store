@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mobilestore/widget/my_drawer.dart';
+import 'package:mobilestore/screens/home_screen.dart';
+
 
 void main() => runApp(MobileStore());
 
@@ -10,24 +11,10 @@ class MobileStore extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         title: 'Mobile Store',
-        home: Directionality(
-          textDirection: TextDirection.rtl,
-          child: Scaffold(
-            body: Center(
-              child: Text("home"),
-            ),
-            appBar: AppBar(
-              title: Text("Home"),
-              actions: <Widget>[
-                IconButton(
-                  icon: Icon(Icons.search),
-                  onPressed: () {},
-                )
-              ],
-              centerTitle: true,
-            ),
-            drawer: MyDrawer(),
-          ),
-        ));
+        initialRoute: HomeScreen.id ,
+      routes: {
+          HomeScreen.id : (context)=>HomeScreen() ,
+      },
+    );
   }
 }
