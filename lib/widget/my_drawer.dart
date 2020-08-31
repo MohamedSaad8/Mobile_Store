@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mobilestore/screens/categories.dart';
+import 'package:mobilestore/screens/home_screen.dart';
 
 // ignore: must_be_immutable
 class MyDrawer extends StatelessWidget {
@@ -35,7 +37,11 @@ class MyDrawer extends StatelessWidget {
               color: Theme.of(context).primaryColor,
               size: 25,
             ),
-            onTap: (){},
+            onTap: (){
+              Navigator.pop(context);
+              Navigator.pushNamed(context, HomeScreen.id);
+
+            },
           ),
           Divider(
             color: Colors.grey,
@@ -50,7 +56,11 @@ class MyDrawer extends StatelessWidget {
               color: Theme.of(context).primaryColor,
               size: 25,
             ),
-            onTap: (){},
+            onTap: (){
+              Navigator.pop(context);
+              Navigator.pushNamed(context, Categories.id);
+
+            },
           ),
           Divider(
             color: Colors.grey,

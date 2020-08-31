@@ -25,7 +25,9 @@ dependencies:
   cupertino_icons: ^0.1.2
 
 dev_dependencies:
+  http: ^0.12.2
   carousel_pro: ^1.0.0
+  device_preview: ^0.4.8
   flutter_test:
     sdk: flutter
 
