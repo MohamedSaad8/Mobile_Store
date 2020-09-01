@@ -5,7 +5,7 @@ import 'package:mobilestore/models/mobile.dart';
 class MobileAPI {
   List<Mobile> mobile = [];
 
-  String url = "https://api.jsonbin.io/b/5f4d27c74d8ce4111385c0b5/3";
+  String url = "https://api.jsonbin.io/b/5f4dfaa64d8ce41113865186/2";
 
   String secretKey =
       "\$2b\$10\$K5JtvvZUs2LP9JSKJasDqONuSekBYps.wgA7SjWWd.ADkt4HoyjEq";
@@ -22,7 +22,8 @@ class MobileAPI {
         cpu: mob["CPU"],
         battery: mob["battery"],
         memory: mob["memory"],
-        price: mob["price"]
+        price: mob["price"],
+        url: mob["URL"]
       ));
     }
     return mobile ;

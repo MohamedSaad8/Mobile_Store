@@ -6,6 +6,7 @@ class Mobile {
   String battery;
   String memory;
   String price;
+  String url;
 
   Mobile(
       {this.name,
@@ -13,5 +14,6 @@ class Mobile {
       this.cpu,
       this.battery,
       this.memory,
-      this.price});
+      this.price,
+      this.url});
 }
