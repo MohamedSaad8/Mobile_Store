@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mobilestore/models/mobile.dart';
+import 'package:mobilestore/screens/details.dart';
 import 'package:mobilestore/services/MobilesAPI.dart';
 
+// ignore: must_be_immutable
 class MobileInfo extends StatelessWidget {
   static String id = "mobile info";
   MobileAPI _mobileAPI = MobileAPI() ;
@@ -38,7 +40,10 @@ class MobileInfo extends StatelessWidget {
                   return Padding(
                     padding: const EdgeInsets.all(5.0),
                     child: InkWell(
-                      onTap: (){},
+                      onTap: ()
+                      {
+                        Navigator.pushNamed(context, Details.id,arguments: snapshot.data[index]);
+                      },
                       child: Container(
                         height: MediaQuery.of(context).size.height * .2,
                         width: double.infinity,

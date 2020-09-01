@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobilestore/screens/categories.dart';
+import 'package:mobilestore/screens/details.dart';
 import 'package:mobilestore/screens/home_screen.dart';
 import 'package:mobilestore/screens/mobile_info.dart';
 //import 'package:device_preview/device_preview.dart';
@@ -18,7 +19,8 @@ class MobileStore extends StatelessWidget {
       routes: {
         HomeScreen.id: (context) => HomeScreen(),
         Categories.id: (context) => Categories(),
-        MobileInfo.id : (context) => MobileInfo()
+        MobileInfo.id : (context) => MobileInfo(),
+        Details.id : (context) => Details()
       },
     );
   }
