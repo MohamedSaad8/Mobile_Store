@@ -29,7 +29,38 @@ class HomeScreen extends StatelessWidget {
           actions: <Widget>[
             IconButton(
               icon: Icon(Icons.search),
-              onPressed: () {},
+              onPressed: () {
+                return showDialog(context: context , builder: (context){
+                  return AlertDialog(
+                    title: Text("Search".toUpperCase()),
+                    content: Container(
+                      height: 100,
+                      child: Column(
+                        children: <Widget>[
+                          Text("this alert to make a search"),
+                          TextFormField(
+                            decoration: InputDecoration(
+                              hintText: "ابحث هنا"
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    actions: <Widget>[
+                      FlatButton(
+                        onPressed: (){
+                          Navigator.pop(context) ;
+                        },
+                        child: Text("الغاء"),
+                      ),
+                      FlatButton(
+                        onPressed: (){},
+                        child: Text("تم"),
+                      ),
+                    ],
+                  );
+                }) ;
+              },
             )
           ],
           centerTitle: true,
