@@ -10,7 +10,7 @@ class MobileAPI {
   String secretKey =
       "\$2b\$10\$K5JtvvZUs2LP9JSKJasDqONuSekBYps.wgA7SjWWd.ADkt4HoyjEq";
 
-  Future<List<Mobile>> getMobileInfo() async {
+   Future<List<Mobile>> getMobileInfo() async {
     var response = await http.get(url, headers: {"secret-key": secretKey});
     var responseBody = jsonDecode(response.body);
     var mobileData = responseBody ;

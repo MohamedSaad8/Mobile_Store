@@ -1,11 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:mobilestore/models/categories_ofline.dart';
 import 'package:carousel_pro/carousel_pro.dart';
+import 'package:mobilestore/models/mobile.dart';
+import 'package:mobilestore/services/MobilesAPI.dart';
 import 'package:mobilestore/widget/my_drawer.dart';
+
+import 'details.dart';
 // ignore: must_be_immutable
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
 
   static String id  ="home" ;
+
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  MobileAPI mobileAPI =MobileAPI();
+
+  List<String> mobilesNames = [] ;
+
+  getNames ()async
+  {
+    for (var mob in await mobileAPI.getMobileInfo())
+      {
+        mobilesNames.add(mob.name.toLowerCase());
+      }
+  }
+
+  @override
+  void initState() {
+    getNames();
+    super.initState();
+  }
 
   List<CategoriesOfLine> catInfo = [
     CategoriesOfLine(
@@ -18,6 +46,7 @@ class HomeScreen extends StatelessWidget {
     CategoriesOfLine(
         title: "nokia", imageLocation: "images/companies/16.jpg"),
   ];
+
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
@@ -30,7 +59,7 @@ class HomeScreen extends StatelessWidget {
             IconButton(
               icon: Icon(Icons.search),
               onPressed: () {
-                return showDialog(context: context , builder: (context){
+               /* return showDialog(context: context , builder: (context){
                   return AlertDialog(
                     title: Text("Search".toUpperCase()),
                     content: Container(
@@ -59,7 +88,9 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ],
                   );
-                }) ;
+                }) ;*/
+               return showSearch(context: context, delegate: DataSearch(mobilesNames)) ;
+
               },
             )
           ],
@@ -164,4 +195,145 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+class DataSearch extends SearchDelegate
+{
+  List<String> mobiles ;
+  DataSearch(this.mobiles) ;
+  MobileAPI mobileAPI = MobileAPI();
+  @override
+  List<Widget> buildActions(BuildContext context) {
+    return [
+      IconButton(
+        onPressed: (){query = "" ;},
+        icon: Icon(Icons.clear),
+      )
+    ];
+  }
+
+  @override
+  Widget buildLeading(BuildContext context) {
+    return IconButton(
+      onPressed: (){
+        close(context, null);
+      },
+      icon: Icon(Icons.arrow_back),
+    );
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    return FutureBuilder<List<Mobile>>(
+      future: mobileAPI.getMobileInfo(),
+      builder: (context ,snapshot)
+      {
+        if(!snapshot.hasData)
+        {
+          return Center(child: CircularProgressIndicator(),);
+        }
+        else
+        {
+          return ListView.builder(itemBuilder: (context , index){
+            return Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: InkWell(
+                onTap: ()
+                {
+                  Navigator.pushNamed(context, Details.id,arguments: snapshot.data[index]);
+                },
+                child: Container(
+                  height: MediaQuery.of(context).size.height * .2,
+                  width: double.infinity,
+                  child: Card(
+                    child: Row(
+                      children: <Widget>[
+                        Expanded(
+                          flex: 1,
+                          child: Image(
+                            image: NetworkImage(snapshot.data[index].url),
+                          ),
+                        ),
+                        SizedBox(width: 10,),
+                        Expanded(
+                          flex: 2,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(snapshot.data[index].name .toUpperCase() ,
+                                style: TextStyle(
+                                    fontFamily: "Cairo" ,
+                                    fontSize: 20 ,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black
+                                ),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: <Widget>[
+                                  Expanded(child: Text("الكاميرا : ${snapshot.data[index].camera}",)),
+                                  Expanded(child: Text("المعالج : ${snapshot.data[index].cpu}",)),
+
+                                ],
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 5),
+                                child: Row(
+                                  children: <Widget>[
+                                    Expanded(child: Text("البطارية : ${snapshot.data[index].battery}",)),
+                                    Expanded(child: Text("اتلذاكرة : ${snapshot.data[index].memory}",)),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 5),
+                                child: Text("السعر : ${snapshot.data[index].price}",),
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            );
+          } ,
+            itemCount: snapshot.data.length,
+          );
+        }
+      },
+    );
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    List<String> searchList = [];
+    if(query.isEmpty)
+      {
+
+        searchList = mobiles ;
+      }
+    else
+      {
+        searchList =  mobiles.where((p)=> p.startsWith(query)).toList() ;
+      }
+    return ListView.builder(
+      itemBuilder: (context , index){
+        return ListTile(
+          title: Text(searchList[index]),
+          leading: Icon(Icons.mobile_screen_share),
+          onTap: ()
+          {
+            query = searchList[index];
+            showResults(context);
+
+            },
+        );
+      },
+      itemCount: searchList.length,
+    );
+  }
+
+
 }
