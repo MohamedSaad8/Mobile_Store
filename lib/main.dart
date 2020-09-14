@@ -7,7 +7,7 @@ import 'package:mobilestore/screens/login_screen.dart';
 import 'package:mobilestore/screens/mobile_info.dart';
 import 'package:device_preview/device_preview.dart';
 
-void main() => runApp(DevicePreview(builder: (data) =>MobileStore(),));
+void main() => runApp(MobileStore());
 
 class MobileStore extends StatelessWidget {
   // This widget is the root of your application.
@@ -17,7 +17,7 @@ class MobileStore extends StatelessWidget {
       theme: ThemeData(
         fontFamily: "Cairo"
       ),
-      builder: DevicePreview.appBuilder,
+     // builder: DevicePreview.appBuilder,
       title: 'Mobile Store',
       initialRoute: HomeScreen.id,
       routes: {
