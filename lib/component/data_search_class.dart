@@ -12,7 +12,10 @@ class DataSearch extends SearchDelegate
   List<Widget> buildActions(BuildContext context) {
     return [
       IconButton(
-        onPressed: (){query = "" ;},
+        onPressed: (){
+          query = "" ;
+
+          },
         icon: Icon(Icons.clear),
       )
     ];

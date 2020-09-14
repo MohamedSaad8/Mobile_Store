@@ -42,8 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
     CategoriesOfLine(title: "oppo", imageLocation: "images/companies/13.png"),
     CategoriesOfLine(title: "sony", imageLocation: "images/companies/14.jpg"),
     CategoriesOfLine(title: "Mi", imageLocation: "images/companies/15.png"),
-    CategoriesOfLine(
-        title: "nokia", imageLocation: "images/companies/16.jpg"),
+    CategoriesOfLine(title: "nokia", imageLocation: "images/companies/16.jpg"),
   ];
 
   @override

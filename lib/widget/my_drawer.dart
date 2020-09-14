@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobilestore/screens/categories.dart';
 import 'package:mobilestore/screens/home_screen.dart';
+import 'package:mobilestore/screens/login_screen.dart';
 
 // ignore: must_be_immutable
 class MyDrawer extends StatelessWidget {
@@ -98,16 +99,18 @@ class MyDrawer extends StatelessWidget {
           ),
           ListTile(
             title: Text(
-              "تسجيل الخروج",
+              "تسجيل الدخول",
               style: _style,
             ),
             leading: Icon(
-              Icons.close,
+              Icons.exit_to_app,
               color: Theme.of(context).primaryColor,
               size: 25,
             ),
 
-            onTap: (){},
+            onTap: (){
+              Navigator.pushNamed(context, LoginScreen.id) ;
+            },
           ),
         ],
       ),
