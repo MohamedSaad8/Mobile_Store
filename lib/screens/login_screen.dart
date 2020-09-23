@@ -1,9 +1,29 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:mobilestore/providers/ui_mode.dart';
 import 'package:mobilestore/widget/login_ui_box.dart';
+import 'package:provider/provider.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   static String id = "LoginScreen";
+
+  @override
+  _LoginScreenState createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  TapGestureRecognizer _signUpScreen  ;
+
+  @override
+  void initState() {
+    final mode1 =Provider.of<UiMode>(context , listen: false);
+    _signUpScreen = new TapGestureRecognizer()..onTap = (){
+     mode1.changeLoginMode();
+     print(mode1.loginMode);
+    } ;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +40,7 @@ class LoginScreen extends StatelessWidget {
                 children: <Widget>[
                   LayoutBuilder(
                     builder: (context, constrain) {
+                      final mode = Provider.of<UiMode>(context);
                       double topCurveHeight = constrain.maxHeight;
                       return Transform.scale(
                         scale: 1.1,
@@ -32,13 +53,19 @@ class LoginScreen extends StatelessWidget {
                                 bottomRight: Radius.circular(topCurveHeight),
                               )),
                           child: Center(
-                            child: Text(
+                            child: mode.loginMode ? Text(
                               "تسجيل الدخول",
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 22,
                               ),
-                            ),
+                            ) :Text(
+                              "انشاء حساب",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 22,
+                              ),
+                            ) ,
                           ),
                         ),
                       );
@@ -194,7 +221,7 @@ class LoginScreen extends StatelessWidget {
                       RichText(
                         text: TextSpan(
                           style: TextStyle(
-                            fontSize: 18,
+                            fontSize: 17,
                             color: Colors.blue,
                             fontFamily: "Cairo"
                           ),
@@ -206,7 +233,8 @@ class LoginScreen extends StatelessWidget {
                             TextSpan(
 
                                 text: "انشاء حساب من هنا" ,
-                              style: TextStyle(fontWeight: FontWeight.bold)
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                              recognizer: _signUpScreen
                             )
 
                           ]
