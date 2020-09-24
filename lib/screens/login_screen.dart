@@ -171,7 +171,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             curve: mode.loginMode == false ? Curves.easeInOutBack : Curves.easeInBack,
                             height: mode.loginMode
                                 ? screenWidth / 1.8
-                                : screenWidth / 1.03,
+                                : screenWidth / 0.96,
                             width: screenWidth,
                             decoration: BoxDecoration(
                               color: Colors.white,
