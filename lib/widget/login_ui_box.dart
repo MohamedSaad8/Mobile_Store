@@ -18,58 +18,65 @@ class loginUiBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          "البريد الالكتروني",
-          style: TextStyle(
-            color: Colors.blue,
-            fontSize: 18,
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          mode == false ? Text(
+            "اسم المستخدم",
+            style: TextStyle(
+              color: Colors.blue,
+              fontSize: 18,
+            ),
+          ) : Container(),
+          mode == false ?  CustomTextFormFiled(
+            hintText: "ادخل اسم المستخدم" ,
+            icon: Icons.person,
+          ) : Container(),
+          mode == false ? SizedBox(
+            height: screenWidth / 35,
+          ) : Container(),
+          Text(
+            "البريد الالكتروني",
+            style: TextStyle(
+              color: Colors.blue,
+              fontSize: 18,
+            ),
           ),
-        ),
-        SizedBox(
-          height: screenWidth / 35,
-        ),
-        CustomTextFormFiled(
-          hintText: "ادخل البريد الالكنروني هنا" ,
-          icon: Icons.email,
-        ),
-        SizedBox(
-          height: screenWidth / 35,
-        ),
-        Text(
-          "الرقم السري",
-          style: TextStyle(
-            color: Colors.blue,
-            fontSize: 18,
+          CustomTextFormFiled(
+            hintText: "ادخل البريد الالكنروني هنا" ,
+            icon: Icons.email,
           ),
-        ),
-        SizedBox(
-          height: screenWidth / 35,
-        ),
-        CustomTextFormFiled(
-          hintText: "ادخل كلمة المرور هنا",
-          icon: Icons.lock,
-        ),
-        mode == false ? SizedBox(
-          height: screenWidth / 35,
-        ) : Container(),
-        mode == false ? Text(
-          "تاكيد الرقم السري",
-          style: TextStyle(
-            color: Colors.blue,
-            fontSize: 18,
+          SizedBox(
+            height: screenWidth / 35,
           ),
-        ) : Container(),
-        mode == false ? SizedBox(
-          height: screenWidth / 35,
-        ): Container(),
-        mode == false ? CustomTextFormFiled(
-          hintText: "ادخل كلمة المرور هنا",
-          icon: Icons.lock,
-        ) : Container(),
-      ],
+          Text(
+            "الرقم السري",
+            style: TextStyle(
+              color: Colors.blue,
+              fontSize: 18,
+            ),
+          ),
+          CustomTextFormFiled(
+            hintText: "ادخل كلمة المرور هنا",
+            icon: Icons.lock,
+          ),
+          mode == false ? SizedBox(
+            height: screenWidth / 35,
+          ) : Container(),
+          mode == false ? Text(
+            "تاكيد الرقم السري",
+            style: TextStyle(
+              color: Colors.blue,
+              fontSize: 18,
+            ),
+          ) : Container(),
+          mode == false ? CustomTextFormFiled(
+            hintText: "ادخل كلمة المرور هنا",
+            icon: Icons.lock,
+          ) : Container(),
+        ],
+      ),
     );
   }
 }

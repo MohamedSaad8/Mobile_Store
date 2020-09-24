@@ -35,7 +35,7 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             children: <Widget>[
               Container(
-                height: screenWidth / 1.5,
+                height:  screenWidth / 1.5 ,
                 color: Colors.white,
                 child: Stack(
                   children: <Widget>[
@@ -166,10 +166,12 @@ class _LoginScreenState extends State<LoginScreen> {
                       children: <Widget>[
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 40),
-                          child: Container(
+                          child: AnimatedContainer(
+                            duration: Duration(milliseconds: 600),
+                            curve: mode.loginMode == false ? Curves.easeInOutBack : Curves.easeInBack,
                             height: mode.loginMode
-                                ? screenWidth / 1.7
-                                : screenWidth / 1.2,
+                                ? screenWidth / 1.8
+                                : screenWidth / 1.03,
                             width: screenWidth,
                             decoration: BoxDecoration(
                               color: Colors.white,
@@ -262,6 +264,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ],
                           ),
                         ),
+                        mode.loginMode==false ? SizedBox(height: 30,) :SizedBox(height: 0,)
                       ],
                     ),
                   ),
