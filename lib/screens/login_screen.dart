@@ -14,6 +14,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   TapGestureRecognizer _signUpScreen;
+  GlobalKey<FormState> _globalKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -170,7 +171,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             duration: Duration(milliseconds: 600),
                             curve: mode.loginMode == false ? Curves.easeInOutBack : Curves.easeInBack,
                             height: mode.loginMode
-                                ? screenWidth / 1.8
+                                ? screenWidth / 1.6
                                 : screenWidth / 0.96,
                             width: screenWidth,
                             decoration: BoxDecoration(
@@ -186,6 +187,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: Directionality(
                               textDirection: TextDirection.rtl,
                               child: Form(
+                                key: _globalKey,
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(
                                     horizontal: 25,
@@ -217,7 +219,10 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: ButtonTheme(
                             buttonColor: Colors.blue[300],
                             child: RaisedButton(
-                              onPressed: () {},
+                              onPressed: ()
+                              {
+                                _globalKey.currentState.validate();
+                              },
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 40, vertical: 5),

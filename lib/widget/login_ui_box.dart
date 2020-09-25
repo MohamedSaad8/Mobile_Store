@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mobilestore/models/categories_ofline.dart';
-import 'package:mobilestore/providers/ui_mode.dart';
-import 'package:provider/provider.dart';
 import 'custom_text_form_feild.dart';
 
 class loginUiBox extends StatelessWidget {
