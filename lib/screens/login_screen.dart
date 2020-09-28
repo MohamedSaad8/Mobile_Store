@@ -1,7 +1,10 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:mobilestore/providers/ui_mode.dart';
+import 'package:mobilestore/services/Auth.dart';
 import 'package:mobilestore/widget/login_ui_box.dart';
 import 'package:provider/provider.dart';
 
@@ -25,6 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
       };
     super.initState();
   }
+  Auth auth =Auth();
 
   @override
   Widget build(BuildContext context) {
@@ -97,51 +101,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                     ),
-
-                    /*Transform.scale(
-                scale: 1.5,
-                child: Transform.translate(
-                  offset: Offset(0 , - screenWidth / 1.8),
-                  child: Container(
-                    width: double.infinity,
-                    height: screenWidth ,
-                    decoration: BoxDecoration(
-                      color: Colors.grey[800],
-                      borderRadius: BorderRadius.circular(screenWidth),
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                right:  screenWidth/1.6,
-                bottom: screenWidth/5,
-                child: Container(
-                  width: screenWidth,
-                  height: screenWidth ,
-                  decoration: BoxDecoration(
-                    color: Colors.blue[800].withOpacity(0.5),
-                    borderRadius: BorderRadius.circular(screenWidth),
-                  ),
-                ),
-              ),
-              Transform.translate(
-                offset: Offset(0 , -screenWidth /8),
-                child: Container(
-                  height: screenWidth/2,
-                  child: Center(
-                    child: Text("تسجيل الدخول" ,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                    ),
-                    ),
-                  ),
-                ),
-              ),
-              Center(
-                child: Transform.translate(offset: Offset(0 , - screenWidth/1.88),
-                child: CircleAvatar(radius: screenWidth/8,),),
-              )*/
                   ],
                 ),
               ),
@@ -187,6 +146,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: Directionality(
                               textDirection: TextDirection.rtl,
                               child: Form(
+                                autovalidate: true,
                                 key: _globalKey,
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(
@@ -219,9 +179,17 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: ButtonTheme(
                             buttonColor: Colors.blue[300],
                             child: RaisedButton(
-                              onPressed: ()
-                              {
-                                _globalKey.currentState.validate();
+                              onPressed: () async
+                              {_globalKey.currentState.validate();
+                              _globalKey.currentState.save();
+                                if(mode.loginMode)
+                                  {
+                                    await  auth.login(email: loginUiBox.email ,password: loginUiBox.password);
+                                  }
+                                else
+                                  {
+                                    await  auth.signUp(email: loginUiBox.email ,password: loginUiBox.password , userName: loginUiBox.userName);
+                                  }
                               },
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(
@@ -277,6 +245,6 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ],
           ),
-        ));
+        ),);
   }
 }

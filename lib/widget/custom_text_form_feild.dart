@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-
 class CustomTextFormFiled extends StatelessWidget {
-
   String hintText ;
   IconData icon ;
-  CustomTextFormFiled({@required this.hintText, @required this.icon});
-  String _erroeMessage(String hint)
-  {
+  Function data ;
+  CustomTextFormFiled({@required this.hintText, @required this.icon , this.data});
+  String _erroeMessage(String hint) {
     switch(hint)
     {
       case "ادخل اسم المستخدم" : return "اسم المستخدم فارغ";
@@ -15,10 +13,10 @@ class CustomTextFormFiled extends StatelessWidget {
 
     }
   }
-
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
     return TextFormField(
+      onSaved: data,
       obscureText: (hintText == "ادخل كلمة المرور هنا") ? true : false,
       validator: (value)
       // ignore: missing_return
@@ -28,8 +26,8 @@ class CustomTextFormFiled extends StatelessWidget {
             return _erroeMessage(hintText);
           // ignore: missing_return,
           }
-
       },
+
       keyboardType: TextInputType.visiblePassword,
       decoration: InputDecoration(
         prefixIcon: Icon(icon),
@@ -61,8 +59,6 @@ class CustomTextFormFiled extends StatelessWidget {
             width: 1,
           ),
         ),
-
-
       ),
     );
   }

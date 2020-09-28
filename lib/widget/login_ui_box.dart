@@ -2,15 +2,18 @@ import 'package:flutter/material.dart';
 import 'custom_text_form_feild.dart';
 
 class loginUiBox extends StatelessWidget {
-  const loginUiBox({
+   loginUiBox({
     Key key,
     @required this.screenWidth,
-    @required this.mode
+    @required this.mode,
+
   }) : super(key: key);
 
   final double screenWidth;
   final bool mode ;
-
+ static String email ;
+ static String userName;
+ static String password;
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +32,8 @@ class loginUiBox extends StatelessWidget {
           mode == false ?  CustomTextFormFiled(
             hintText: "ادخل اسم المستخدم" ,
             icon: Icons.person,
+            data: (value){userName = value ;},
+
           ) : Container(),
           mode == false ? SizedBox(
             height: screenWidth / 35,
@@ -43,6 +48,8 @@ class loginUiBox extends StatelessWidget {
           CustomTextFormFiled(
             hintText: "ادخل البريد الالكنروني هنا" ,
             icon: Icons.email,
+            data: (value){email = value ;},
+
           ),
           SizedBox(
             height: screenWidth / 35,
@@ -57,6 +64,8 @@ class loginUiBox extends StatelessWidget {
           CustomTextFormFiled(
             hintText: "ادخل كلمة المرور هنا",
             icon: Icons.lock,
+            data: (value){password = value ;},
+
           ),
           mode == false ? SizedBox(
             height: screenWidth / 35,
@@ -71,6 +80,7 @@ class loginUiBox extends StatelessWidget {
           mode == false ? CustomTextFormFiled(
             hintText: "ادخل كلمة المرور هنا",
             icon: Icons.lock,
+            data: (value){password = value ;},
           ) : Container(),
         ],
       ),
