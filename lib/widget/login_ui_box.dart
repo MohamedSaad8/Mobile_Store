@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'custom_text_form_feild.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class loginUiBox extends StatelessWidget {
+class loginUiBox extends StatefulWidget {
    loginUiBox({
     Key key,
     @required this.screenWidth,
@@ -16,27 +17,33 @@ class loginUiBox extends StatelessWidget {
  static String password;
 
   @override
+  _loginUiBoxState createState() => _loginUiBoxState();
+}
+
+class _loginUiBoxState extends State<loginUiBox> {
+
+  @override
   Widget build(BuildContext context) {
 
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          mode == false ? Text(
+          widget.mode == false ? Text(
             "اسم المستخدم",
             style: TextStyle(
               color: Colors.blue,
               fontSize: 18,
             ),
           ) : Container(),
-          mode == false ?  CustomTextFormFiled(
+          widget.mode == false ?  CustomTextFormFiled(
             hintText: "ادخل اسم المستخدم" ,
             icon: Icons.person,
-            data: (value){userName = value ;},
+            data: (value){loginUiBox.userName = value ;},
 
           ) : Container(),
-          mode == false ? SizedBox(
-            height: screenWidth / 35,
+          widget.mode == false ? SizedBox(
+            height: widget.screenWidth / 35,
           ) : Container(),
           Text(
             "البريد الالكتروني",
@@ -48,11 +55,11 @@ class loginUiBox extends StatelessWidget {
           CustomTextFormFiled(
             hintText: "ادخل البريد الالكنروني هنا" ,
             icon: Icons.email,
-            data: (value){email = value ;},
+            data: (value){loginUiBox.email = value ;},
 
           ),
           SizedBox(
-            height: screenWidth / 35,
+            height: widget.screenWidth / 35,
           ),
           Text(
             "الرقم السري",
@@ -64,23 +71,23 @@ class loginUiBox extends StatelessWidget {
           CustomTextFormFiled(
             hintText: "ادخل كلمة المرور هنا",
             icon: Icons.lock,
-            data: (value){password = value ;},
+            data: (value){loginUiBox.password = value ;},
 
           ),
-          mode == false ? SizedBox(
-            height: screenWidth / 35,
+          widget.mode == false ? SizedBox(
+            height: widget.screenWidth / 35,
           ) : Container(),
-          mode == false ? Text(
+          widget.mode == false ? Text(
             "تاكيد الرقم السري",
             style: TextStyle(
               color: Colors.blue,
               fontSize: 18,
             ),
           ) : Container(),
-          mode == false ? CustomTextFormFiled(
+          widget.mode == false ? CustomTextFormFiled(
             hintText: "ادخل كلمة المرور هنا",
             icon: Icons.lock,
-            data: (value){password = value ;},
+            data: (value){loginUiBox.password = value ;},
           ) : Container(),
         ],
       ),

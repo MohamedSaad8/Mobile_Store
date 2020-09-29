@@ -1,6 +1,7 @@
 import "package:http/http.dart" as http;
 import 'dart:convert';
 import '../constant.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Auth
 {
@@ -18,6 +19,9 @@ class Auth
         var data = responseBody;
         String token = data["jwt"] ;
         print(token);
+          SharedPreferences sharedPreference = await SharedPreferences.getInstance();
+          sharedPreference.setString("username", responseBody["user"]["username"]);
+          sharedPreference.setString("email", responseBody["user"]["email"]);
 
       }
     else{print("faild");}

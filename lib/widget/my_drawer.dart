@@ -2,22 +2,51 @@ import 'package:flutter/material.dart';
 import 'package:mobilestore/screens/categories.dart';
 import 'package:mobilestore/screens/home_screen.dart';
 import 'package:mobilestore/screens/login_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // ignore: must_be_immutable
-class MyDrawer extends StatelessWidget {
+class MyDrawer extends StatefulWidget {
+  @override
+  _MyDrawerState createState() => _MyDrawerState();
+}
+
+class _MyDrawerState extends State<MyDrawer> {
   TextStyle _style = TextStyle(
       color: Colors.black,
       fontSize: 18 ,
       fontFamily: "Cairo"
   );
+
+  String userName ;
+  String email ;
+  bool isLogin = false ;
+
+  getUserInfo() async {
+    SharedPreferences sharedPreference = await SharedPreferences.getInstance();
+    userName = sharedPreference.getString("username");
+    email = sharedPreference.getString("email") ;
+    if(userName != null)
+    setState(() {
+      userName = sharedPreference.getString("username");
+      email = sharedPreference.getString("email") ;
+      isLogin = true ;
+    });
+
+  }
+  @override
+  void initState() {
+    getUserInfo();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
       child: ListView(
         children: <Widget>[
           UserAccountsDrawerHeader(
-            accountName: Text("Mohamed Saad"),
-            accountEmail: Text("mohamedsaad.cis@gmail.com"),
+            accountName: isLogin == true ? Text(userName) : Text(""),
+            accountEmail: isLogin == true ? Text(email) : Text(""),
             currentAccountPicture: CircleAvatar(
               child: Icon(Icons.person),
             ),
@@ -99,17 +128,30 @@ class MyDrawer extends StatelessWidget {
           ),
           ListTile(
             title: Text(
-              "تسجيل الدخول",
+              isLogin == false ?  "تسجيل الدخول" : "تسجيل الخروج",
               style: _style,
-            ),
+            ) ,
             leading: Icon(
               Icons.exit_to_app,
               color: Theme.of(context).primaryColor,
               size: 25,
             ),
 
-            onTap: (){
-              Navigator.pushNamed(context, LoginScreen.id) ;
+            onTap: ()async{
+              if(isLogin == false)
+                {
+                  Navigator.pushNamed(context, LoginScreen.id) ;
+                }
+              else
+                {
+                  SharedPreferences s =await  SharedPreferences.getInstance();
+                  s.remove("username");
+                  s.remove("email");
+                  setState(() {
+                    isLogin = false;
+                  });
+                  Navigator.pushNamed(context, LoginScreen.id) ;
+                }
             },
           ),
         ],
