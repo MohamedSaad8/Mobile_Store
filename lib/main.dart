@@ -7,6 +7,7 @@ import 'package:mobilestore/screens/home_screen.dart';
 import 'package:mobilestore/screens/login_screen.dart';
 import 'package:mobilestore/screens/mobile_info.dart';
 import 'package:device_preview/device_preview.dart';
+import 'package:mobilestore/screens/posts.dart';
 import 'package:provider/provider.dart';
 
 void main() => runApp(MobileStore(),);
@@ -34,6 +35,7 @@ class MobileStore extends StatelessWidget {
           MobileInfo.id : (context) => MobileInfo(),
           Details.id : (context) => Details(),
           LoginScreen.id : (context) => LoginScreen(),
+          Posts.id : (context) => Posts(),
         },
       ),
     );

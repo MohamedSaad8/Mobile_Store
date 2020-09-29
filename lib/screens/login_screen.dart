@@ -253,7 +253,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: InkWell(
-                                onTap: (){},
+                                onTap: () {},
                                 child: Container(
                                   padding: EdgeInsets.symmetric(vertical: 15),
                                   color: Colors.red,
@@ -270,7 +270,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: InkWell(
-                                onTap: (){},
+                                onTap: () {},
                                 child: Container(
                                   color: Colors.blue[800],
                                   padding: EdgeInsets.symmetric(vertical: 15),

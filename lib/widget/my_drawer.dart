@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobilestore/screens/categories.dart';
 import 'package:mobilestore/screens/home_screen.dart';
 import 'package:mobilestore/screens/login_screen.dart';
+import 'package:mobilestore/screens/posts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // ignore: must_be_immutable
@@ -106,7 +107,9 @@ class _MyDrawerState extends State<MyDrawer> {
               size: 25,
             ),
 
-            onTap: (){},
+            onTap: (){
+              Navigator.pushNamed(context, Posts.id) ;
+            },
           ) : Container(),
          isLogin ? Divider(
             color: Colors.grey,
