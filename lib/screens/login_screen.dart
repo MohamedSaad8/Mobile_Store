@@ -17,10 +17,10 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-
   TapGestureRecognizer _signUpScreen;
   GlobalKey<FormState> _globalKey = GlobalKey<FormState>();
   Auth auth = Auth();
+
   @override
   void initState() {
     final mode1 = Provider.of<UiMode>(context, listen: false);
@@ -243,9 +243,51 @@ class _LoginScreenState extends State<LoginScreen> {
                           ],
                         ),
                       ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: InkWell(
+                                onTap: (){},
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(vertical: 15),
+                                  color: Colors.red,
+                                  child: Text(
+                                    "تسجيل الدخول بواسطه جوجل",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: InkWell(
+                                onTap: (){},
+                                child: Container(
+                                  color: Colors.blue[800],
+                                  padding: EdgeInsets.symmetric(vertical: 15),
+                                  child: Text(
+                                    "تسجيل الدخول بواسطه فيسبوك",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
                       mode.loginMode == false
                           ? SizedBox(
-                              height: 30,
+                              height: 100,
                             )
                           : SizedBox(
                               height: 0,

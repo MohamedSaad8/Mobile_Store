@@ -95,22 +95,22 @@ class _MyDrawerState extends State<MyDrawer> {
           Divider(
             color: Colors.grey,
           ),
-          ListTile(
+         isLogin ? ListTile(
             title: Text(
-              "حول التطبيق",
+              "اضافة منشور",
               style: _style,
             ),
             leading: Icon(
-              Icons.help,
+              Icons.add_box,
               color: Theme.of(context).primaryColor,
               size: 25,
             ),
 
             onTap: (){},
-          ),
-          Divider(
+          ) : Container(),
+         isLogin ? Divider(
             color: Colors.grey,
-          ),
+          ) : Container(),
           ListTile(
             title: Text(
               "الاعدادات",
