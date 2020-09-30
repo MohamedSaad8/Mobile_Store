@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobilestore/providers/ui_mode.dart';
 import 'package:mobilestore/screens/categories.dart';
+import 'package:mobilestore/screens/comments.dart';
 import 'package:mobilestore/screens/details.dart';
 import 'package:mobilestore/screens/home_screen.dart';
 import 'package:mobilestore/screens/login_screen.dart';
@@ -36,6 +37,7 @@ class MobileStore extends StatelessWidget {
           Details.id : (context) => Details(),
           LoginScreen.id : (context) => LoginScreen(),
           Posts.id : (context) => Posts(),
+          Comment.id :(context) => Comment()
         },
       ),
     );

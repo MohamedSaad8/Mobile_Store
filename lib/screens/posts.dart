@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mobilestore/screens/comments.dart';
 
 class Posts extends StatelessWidget {
   static String id = "posts";
@@ -46,7 +47,10 @@ class Posts extends StatelessWidget {
                         ),
                       ),
                       padding: EdgeInsets.symmetric(vertical: 10),
-                      width: MediaQuery.of(context).size.width,
+                      width: MediaQuery
+                          .of(context)
+                          .size
+                          .width,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
@@ -82,7 +86,10 @@ class Posts extends StatelessWidget {
                                     color: Colors.white,
                                   ),
                                 ),
-                                title: Text("mohamed saad" , style: TextStyle(color: Colors.blue, fontWeight: FontWeight.w900,fontSize: 17),),
+                                title: Text("mohamed saad", style: TextStyle(
+                                    color: Colors.blue,
+                                    fontWeight: FontWeight.w900,
+                                    fontSize: 17),),
                                 subtitle: Text(
                                     "لديا جهاز من نوع سامسونج جلاكسي 4 واريد بيعه لاعلي سعر وهذا لان حالته جيده جدا"),
                                 trailing: Icon(Icons.more_vert),
@@ -94,13 +101,16 @@ class Posts extends StatelessWidget {
                                   ),
                                 ),
                                 padding: EdgeInsets.symmetric(vertical: 10),
-                                width: MediaQuery.of(context).size.width,
-                                height : 55 ,
+                                width: MediaQuery
+                                    .of(context)
+                                    .size
+                                    .width,
+                                height: 55,
                                 child: Row(
                                   children: <Widget>[
                                     Expanded(
                                       child: GestureDetector(
-                                        onTap:(){} ,
+                                        onTap: () {},
                                         child: Container(
                                           child: Row(
                                             children: <Widget>[
@@ -114,16 +124,16 @@ class Posts extends StatelessWidget {
                                               )
                                             ],
                                             mainAxisAlignment:
-                                                MainAxisAlignment.center,
+                                            MainAxisAlignment.center,
                                           ),
                                         ),
                                       ),
                                     ),
                                     Expanded(
                                       child: GestureDetector(
-                                        onTap:(){
-
-                                        } ,
+                                        onTap: () {
+                                          Navigator.pushNamed(context, Comment.id);
+                                        },
                                         child: Container(
                                           child: Row(
                                             children: <Widget>[
@@ -137,10 +147,11 @@ class Posts extends StatelessWidget {
                                               )
                                             ],
                                             mainAxisAlignment:
-                                                MainAxisAlignment.center,
+                                            MainAxisAlignment.center,
                                           ),
                                           decoration: BoxDecoration(
-                                            border: Border(right: BorderSide(color: Colors.grey))
+                                              border: Border(right: BorderSide(
+                                                  color: Colors.grey))
                                           ),
                                         ),
                                       ),

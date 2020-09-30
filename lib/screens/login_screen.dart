@@ -246,7 +246,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       SizedBox(
                         height: 10,
                       ),
-                      Row(
+                    mode.loginMode ==true ?  Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Expanded(
@@ -277,14 +277,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                   child: Text(
                                     "تسجيل الدخول بواسطه فيسبوك",
                                     textAlign: TextAlign.center,
-                                    style: TextStyle(color: Colors.white),
+                                    style: TextStyle(color: Colors.white , fontSize: 13),
+
                                   ),
                                 ),
                               ),
                             ),
                           )
                         ],
-                      ),
+                      ) : Container(),
                       mode.loginMode == false
                           ? SizedBox(
                               height: 100,
