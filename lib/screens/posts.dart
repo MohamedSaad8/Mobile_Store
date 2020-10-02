@@ -1,9 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mobilestore/models/posts.dart';
 import 'package:mobilestore/screens/comments.dart';
+import 'package:mobilestore/services/API/postAPI.dart';
 
-class Posts extends StatelessWidget {
+class Posts extends StatefulWidget {
   static String id = "posts";
+
+  @override
+  _PostsState createState() => _PostsState();
+}
+
+class _PostsState extends State<Posts> {
+  PostsAPI postAPI = PostsAPI();
 
   @override
   Widget build(BuildContext context) {
@@ -33,10 +42,12 @@ class Posts extends StatelessWidget {
                                 color: Colors.grey,
                               ))),
                     ),
-                    leading: CircleAvatar(child: Icon(
-                      Icons.person,
-                      color: Colors.white,
-                    ),),
+                    leading: CircleAvatar(
+                      child: Icon(
+                        Icons.person,
+                        color: Colors.white,
+                      ),
+                    ),
                   ),
                   InkWell(
                     onTap: () {},
@@ -47,10 +58,7 @@ class Posts extends StatelessWidget {
                         ),
                       ),
                       padding: EdgeInsets.symmetric(vertical: 10),
-                      width: MediaQuery
-                          .of(context)
-                          .size
-                          .width,
+                      width: MediaQuery.of(context).size.width,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
@@ -70,90 +78,102 @@ class Posts extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: ListView.builder(
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 4),
-                    child: Column(
-                      children: <Widget>[
-                        Card(
+              child: StreamBuilder(
+                stream: postAPI.getData(Duration(seconds: 3)),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return ListView.builder(
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 4),
                           child: Column(
                             children: <Widget>[
-                              ListTile(
-                                leading: CircleAvatar(
-                                  child: Icon(
-                                    Icons.person,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                title: Text("mohamed saad", style: TextStyle(
-                                    color: Colors.blue,
-                                    fontWeight: FontWeight.w900,
-                                    fontSize: 17),),
-                                subtitle: Text(
-                                    "لديا جهاز من نوع سامسونج جلاكسي 4 واريد بيعه لاعلي سعر وهذا لان حالته جيده جدا"),
-                                trailing: Icon(Icons.more_vert),
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                  border: Border(
-                                    top: BorderSide(color: Colors.grey),
-                                  ),
-                                ),
-                                padding: EdgeInsets.symmetric(vertical: 10),
-                                width: MediaQuery
-                                    .of(context)
-                                    .size
-                                    .width,
-                                height: 55,
-                                child: Row(
+                              Card(
+                                child: Column(
                                   children: <Widget>[
-                                    Expanded(
-                                      child: GestureDetector(
-                                        onTap: () {},
-                                        child: Container(
-                                          child: Row(
-                                            children: <Widget>[
-                                              Text("اعجبني"),
-                                              SizedBox(
-                                                width: 2,
-                                              ),
-                                              Icon(
-                                                Icons.thumb_up,
-                                                color: Colors.grey,
-                                              )
-                                            ],
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                          ),
+                                    ListTile(
+                                      leading: CircleAvatar(
+                                        child: Icon(
+                                          Icons.person,
+                                          color: Colors.white,
                                         ),
                                       ),
+                                      title: Text(
+                                        snapshot.data[index].postUser.userName,
+                                        style: TextStyle(
+                                            color: Colors.blue,
+                                            fontWeight: FontWeight.w900,
+                                            fontSize: 17),
+                                      ),
+                                      subtitle: Text(
+                                          snapshot.data[index].postContent),
+                                      trailing: Icon(Icons.more_vert),
                                     ),
-                                    Expanded(
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          Navigator.pushNamed(context, Comment.id);
-                                        },
-                                        child: Container(
-                                          child: Row(
-                                            children: <Widget>[
-                                              Text("تعليق"),
-                                              SizedBox(
-                                                width: 2,
-                                              ),
-                                              Icon(
-                                                Icons.comment,
-                                                color: Colors.grey,
-                                              )
-                                            ],
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                          ),
-                                          decoration: BoxDecoration(
-                                              border: Border(right: BorderSide(
-                                                  color: Colors.grey))
-                                          ),
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        border: Border(
+                                          top: BorderSide(color: Colors.grey),
                                         ),
+                                      ),
+                                      padding:
+                                          EdgeInsets.symmetric(vertical: 10),
+                                      width: MediaQuery.of(context).size.width,
+                                      height: 55,
+                                      child: Row(
+                                        children: <Widget>[
+                                          Expanded(
+                                            child: GestureDetector(
+                                              onTap: () {},
+                                              child: Container(
+                                                child: Row(
+                                                  children: <Widget>[
+                                                    Text("اعجبني"),
+                                                    SizedBox(
+                                                      width: 2,
+                                                    ),
+                                                    Icon(
+                                                      Icons.thumb_up,
+                                                      color: Colors.grey,
+                                                    )
+                                                  ],
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: GestureDetector(
+                                              onTap: () {
+                                                Navigator.pushNamed(
+                                                    context, Comment.id,
+                                                    arguments:
+                                                        snapshot.data[index]);
+                                              },
+                                              child: Container(
+                                                child: Row(
+                                                  children: <Widget>[
+                                                    Text("تعليق"),
+                                                    SizedBox(
+                                                      width: 2,
+                                                    ),
+                                                    Icon(
+                                                      Icons.comment,
+                                                      color: Colors.grey,
+                                                    )
+                                                  ],
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                ),
+                                                decoration: BoxDecoration(
+                                                    border: Border(
+                                                        right: BorderSide(
+                                                            color:
+                                                                Colors.grey))),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ],
@@ -161,12 +181,15 @@ class Posts extends StatelessWidget {
                               ),
                             ],
                           ),
-                        ),
-                      ],
-                    ),
-                  );
+                        );
+                      },
+                      itemCount: snapshot.data.length,
+                    );
+                  } else
+                    return Container(
+                      child: Text("no data in snapshot"),
+                    );
                 },
-                itemCount: 10,
               ),
             ),
           ],
