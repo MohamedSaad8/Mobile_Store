@@ -42,5 +42,24 @@ class PostsAPI {
 
   }
 
+  addPost({String postContent , int userID}) async{
+
+   var data = {
+      "postContent" : postContent ,
+      "user": "$userID"
+    };
+
+   var response = await http.post(postsURL ,body: data);
+   if(response.statusCode == 200)
+     {
+       print("poste add operation done");
+     }
+   else
+     {
+       print("not complete");
+     }
+
+  }
+
 
 }

@@ -22,6 +22,8 @@ class Auth
           SharedPreferences sharedPreference = await SharedPreferences.getInstance();
           sharedPreference.setString("username", responseBody["user"]["username"]);
           sharedPreference.setString("email", responseBody["user"]["email"]);
+          sharedPreference.setInt("userID", responseBody["user"]["id"]);
+
 
       }
     else{print("faild");}

@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mobilestore/models/posts.dart';
 import 'package:mobilestore/screens/comments.dart';
 import 'package:mobilestore/services/API/postAPI.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Posts extends StatefulWidget {
   static String id = "posts";
@@ -13,6 +13,25 @@ class Posts extends StatefulWidget {
 
 class _PostsState extends State<Posts> {
   PostsAPI postAPI = PostsAPI();
+  int userID;
+  String postContent;
+  GlobalKey<FormState> _globalKey = GlobalKey<FormState>();
+
+  getUsereID() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    userID = sharedPreferences.getInt("userID");
+    if (userID != null) {
+      setState(() {
+        userID = userID = sharedPreferences.getInt("userID");
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    getUsereID();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,55 +45,68 @@ class _PostsState extends State<Posts> {
         body: Column(
           children: <Widget>[
             Card(
-              child: Column(
-                children: <Widget>[
-                  ListTile(
-                    title: TextFormField(
-                      minLines: 1,
-                      maxLines: 10,
-                      maxLength: 250,
-                      decoration: InputDecoration(
+              child: Form(
+                key: _globalKey,
+                child: Column(
+                  children: <Widget>[
+                    ListTile(
+                      title: TextFormField(
+                        onSaved: (value) {
+                          postContent = value;
+                        },
+                        minLines: 1,
+                        maxLines: 10,
+                        maxLength: 250,
+                        decoration: InputDecoration(
                           hintText: "اضف منشورك هنا . . .",
                           contentPadding: EdgeInsets.all(5),
                           border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20),
-                              borderSide: BorderSide(
-                                color: Colors.grey,
-                              ))),
-                    ),
-                    leading: CircleAvatar(
-                      child: Icon(
-                        Icons.person,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {},
-                    child: Container(
-                      decoration: BoxDecoration(
-                        border: Border(
-                          top: BorderSide(color: Colors.grey),
+                            borderRadius: BorderRadius.circular(20),
+                            borderSide: BorderSide(
+                              color: Colors.grey,
+                            ),
+                          ),
                         ),
                       ),
-                      padding: EdgeInsets.symmetric(vertical: 10),
-                      width: MediaQuery.of(context).size.width,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text("اضافة منشور"),
-                          SizedBox(
-                            width: 2,
-                          ),
-                          Icon(
-                            Icons.add_box,
-                            color: Colors.grey,
-                          )
-                        ],
+                      leading: CircleAvatar(
+                        child: Icon(
+                          Icons.person,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
-                  )
-                ],
+                    InkWell(
+                      onTap: () async {
+                        _globalKey.currentState.save();
+                        await postAPI.addPost(
+                            userID: userID, postContent: postContent);
+                        print(userID.toString());
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border(
+                            top: BorderSide(color: Colors.grey),
+                          ),
+                        ),
+                        padding: EdgeInsets.symmetric(vertical: 10),
+                        width: MediaQuery.of(context).size.width,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Text("اضافة منشور"),
+                            SizedBox(
+                              width: 2,
+                            ),
+                            Icon(
+                              Icons.add_box,
+                              color: Colors.grey,
+                            )
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
             Expanded(
@@ -160,16 +192,17 @@ class _PostsState extends State<Posts> {
                                                     Icon(
                                                       Icons.comment,
                                                       color: Colors.grey,
-                                                    )
+                                                    ),
                                                   ],
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.center,
                                                 ),
                                                 decoration: BoxDecoration(
-                                                    border: Border(
-                                                        right: BorderSide(
-                                                            color:
-                                                                Colors.grey))),
+                                                  border: Border(
+                                                    right: BorderSide(
+                                                        color: Colors.grey),
+                                                  ),
+                                                ),
                                               ),
                                             ),
                                           ),
